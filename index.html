@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Структура категорий продукции</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f5ff 0%, #e6f0ff 100%);
+            color: #333;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            background: linear-gradient(90deg, #1a56db, #2c3e50);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .description {
+            font-size: 1.2rem;
+            color: #5a6b82;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        
+        .level1-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+        
+        .level1-block {
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            width: calc(20% - 25px);
+            min-width: 280px;
+            transition: all 0.3s ease;
+            border: 1px solid #eef2f7;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .level1-block:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .level1-header {
+            background: linear-gradient(135deg, #1a56db 0%, #2c3e50 100%);
+            color: white;
+            padding: 20px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .level1-title {
+            flex-grow: 1;
+            padding-right: 10px;
+        }
+        
+        .level1-code {
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 5px;
+            padding: 4px 12px;
+            margin-right: 12px;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+        }
+        
+        .level2-container {
+            padding: 0;
+            background: #ffffff;
+            flex-grow: 1;
+        }
+        
+        .level2-list {
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .level1-block.collapsed .level2-list {
+            max-height: 300px;
+        }
+        
+        .level2-item {
+            padding: 14px 20px;
+            border-bottom: 1px solid #f0f5ff;
+            font-size: 1rem;
+            color: #4a5568;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .level2-item:hover {
+            background-color: #f8faff;
+            transform: translateX(5px);
+        }
+        
+        .level2-item:last-child {
+            border-bottom: none;
+        }
+        
+        .level2-code {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: #1a56db;
+            margin-right: 12px;
+            min-width: 60px;
+            font-size: 0.95rem;
+        }
+        
+        .show-more-container {
+            padding: 15px 20px;
+            text-align: center;
+            background: #f9fbfd;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .show-more-btn {
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(66, 153, 225, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .show-more-btn:hover {
+            background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(66, 153, 225, 0.4);
+        }
+        
+        .show-more-btn i {
+            font-style: normal;
+            font-size: 1.2rem;
+        }
+        
+        .collapsed .level2-item:nth-child(n+6) {
+            display: none;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            color: #5a6b82;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+        
+        .stat-item {
+            background: #ebf4ff;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+        
+        @media (max-width: 1500px) {
+            .level1-block {
+                width: calc(25% - 25px);
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .level1-block {
+                width: calc(33.333% - 25px);
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .level1-block {
+                width: calc(50% - 25px);
+            }
+            
+            h1 {
+                font-size: 2.3rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .level1-block {
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .description {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Каталог категорий продукции</h1>
+            <p class="description">Двухуровневая структура категорий с возможностью просмотра подкатегорий. Для категорий с более чем 5 подпунктами доступна кнопка "Показать еще" под списком.</p>
+        </header>
+        
+        <div class="level1-container" id="categoriesContainer">
+            <!-- Блоки будут сгенерированы JavaScript -->
+        </div>
+        
+        <footer>
+            <p>Прототип системы категоризации продукции | Группировка по уровням</p>
+            <div class="stats">
+                <div class="stat-item">Всего категорий: <span id="totalCategories">0</span></div>
+                <div class="stat-item">Категорий 1-го уровня: <span id="level1Count">0</span></div>
+                <div class="stat-item">Категорий 2-го уровня: <span id="level2Count">0</span></div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Данные категорий
+        const categoriesData = [
+            {code: "10", title: "Изделия для прокладки кабеля", children: [
+                {code: "1040", title: "Кабеленесущие системы"},
+                {code: "1050", title: "Коробки распределительные"},
+                {code: "1060", title: "Кабельная арматура"},
+                {code: "1065", title: "Силовые разъемы"},
+                {code: "1070", title: "Клеммные зажимы"},
+                {code: "1075", title: "Изделия для изоляции, крепления и маркировки"}
+            ]},
+            {code: "11", title: "Кабели и провода", children: [
+                {code: "1105", title: "Кабели силовые"},
+                {code: "1110", title: "Кабели контрольные"},
+                {code: "1115", title: "Кабели монтажные"},
+                {code: "1120", title: "Кабели связи"},
+                {code: "1125", title: "Провода и шнуры"},
+                {code: "1130", title: "Провода для линий электропередач"},
+                {code: "1135", title: "Кабели и провода узкоспециальные"}
+            ]},
+            {code: "16", title: "Кабеленесущие системы", children: [
+                {code: "1610", title: "Кабель-каналы"},
+                {code: "1615", title: "Аксессуары для кабель-каналов"},
+                {code: "1620", title: "Трубы для прокладки кабеля"},
+                {code: "1625", title: "Аксессуары и комплектующие для труб"},
+                {code: "1630", title: "Кабельные лотки"},
+                {code: "1635", title: "Аксессуары для кабельных лотков"},
+                {code: "1640", title: "Колонны и миниколонны"},
+                {code: "1645", title: "Системы электроснабжения рабочих мест"},
+                {code: "1650", title: "Фальшполы"},
+                {code: "1655", title: "Специализированные системы прокладки кабеля"}
+            ]},
+            {code: "30", title: "Светотехнические изделия", children: [
+                {code: "3012", title: "Светильники светодиодные (LED)"},
+                {code: "3015", title: "Традиционные светильники"},
+                {code: "3021", title: "Источники света (лампы)"},
+                {code: "3025", title: "Бактерицидные облучатели и лампы"},
+                {code: "3031", title: "Комплектующие и аксессуары для светильников"},
+                {code: "3041", title: "Металлоконструкции для уличного освещения"},
+                {code: "3051", title: "Системы управления освещением"}
+            ]},
+            {code: "40", title: "Изделия электроустановочные", children: [
+                {code: "4001", title: "Установочные изделия общего назначения"},
+                {code: "4002", title: "Установочные изделия для систем 'Умный дом'"},
+                {code: "4003", title: "Установочные изделия специального назначения (антивандальные и др.)"}
+            ]},
+            {code: "50", title: "Оборудование низковольтное", children: [
+                {code: "5010", title: "Аппараты защиты"},
+                {code: "5015", title: "Пускатели, контакторы и аксессуары к ним"},
+                {code: "5019", title: "Рубильники, разъединители, выключатели нагрузки"},
+                {code: "5030", title: "Кнопки, кнопочные посты, переключатели, светосигнальная аппаратура"},
+                {code: "5033", title: "Приборы контроля и сигнализации"},
+                {code: "5035", title: "Устройства управления электродвигателями"},
+                {code: "5040", title: "Электродвигатели и крановое оборудование"},
+                {code: "5045", title: "Приборы измерения и учета"},
+                {code: "5049", title: "Трансформаторы низковольтные"},
+                {code: "5053", title: "Молниезащита и заземление"},
+                {code: "5060", title: "Приборы измерительные"},
+                {code: "5090", title: "Специальное оборудование"}
+            ]},
+            {code: "53", title: "Источники питания", children: [
+                {code: "5310", title: "Источники бесперебойного и резервного питания"},
+                {code: "5320", title: "Аккумуляторные батареи"},
+                {code: "5330", title: "Альтернативная энергетика"},
+                {code: "5340", title: "Генерирующие электроустановки"},
+                {code: "5350", title: "Оборудование улучшения качества электроэнергии"},
+                {code: "5360", title: "Элементы питания"},
+                {code: "5370", title: "Зарядные станции для автомобилей"}
+            ]},
+            {code: "55", title: "Щитовое оборудование", children: [
+                {code: "5510", title: "Щитовое оборудование готовое"},
+                {code: "5530", title: "Щиты монтажные сборные (составные части)"},
+                {code: "5555", title: "Элементы комплектации шкафов"},
+                {code: "5560", title: "Элементы для установки оборудования и прокладки кабеля"},
+                {code: "5565", title: "Шины и аксессуары для шин"},
+                {code: "5570", title: "Клеммы, клеммные блоки и нулевые шины"},
+                {code: "5575", title: "Электрооборудование шкафов"},
+                {code: "5580", title: "Системы поддержания микроклимата"},
+                {code: "5595", title: "Материалы для оформления и вспомогательные щитовые аксессуары"}
+            ]},
+            {code: "60", title: "Отопление и климат", children: [
+                {code: "6004", title: "Кондиционеры"},
+                {code: "6009", title: "Котельное оборудование"},
+                {code: "6014", title: "Водонагреватели"},
+                {code: "6019", title: "Радиаторы"},
+                {code: "6024", title: "Конвекторы водяные"},
+                {code: "6029", title: "Кабельные нагревательные системы"},
+                {code: "6034", title: "Теплые полы"},
+                {code: "6040", title: "Обогревательные приборы"},
+                {code: "6045", title: "Полотенцесушители"},
+                {code: "6050", title: "Камины электрические"},
+                {code: "6055", title: "Бытовая вентиляция и климат"},
+                {code: "6060", title: "Производственная и промышленная вентиляция"},
+                {code: "6065", title: "Вентиляционные решетки и воздухораспределители"},
+                {code: "6070", title: "Люки ревизионные"},
+                {code: "6075", title: "Промышленная подготовка воздуха"},
+                {code: "6080", title: "Промышленное отопление, охлаждение и снеготаяние"}
+            ]},
+            {code: "70", title: "Инструмент и строительное оборудование", children: [
+                {code: "7030", title: "Технически сложный инструмент"},
+                {code: "7040", title: "Ручной инструмент"},
+                {code: "7050", title: "Оснастка и расходные материалы"},
+                {code: "7055", title: "Компрессорное оборудование и пневмоинструмент"},
+                {code: "7060", title: "Все для сварки"},
+                {code: "7065", title: "Паяльное оборудование, аксессуары и расходные материалы"},
+                {code: "7070", title: "Садовый инструмент"},
+                {code: "7075", title: "Строительное оборудование, бензоинструмент, комплектующие"},
+                {code: "7080", title: "Измерительный инструмент"} ]},
+				
+				
+				
+			{code: "71", title: "Оборудование и техника для склада",children: [
+{code: "7110", title: "Складская техника"},
+{code: "7130", title: "Стеллажные системы"},
+{code: "7140", title: "Грузоподъемное оборудование"},
+{code: "7145", title: "Оснащение зоны погрузки-разгрузки"},
+{code: "7150", title: "Оборудование для работ на высоте"},
+{code: "7180", title: "Оборудование для безопасности на складе"},
+{code: "7190", title: "Системы хранения, аксессуары для склада"},
+{code: "7193", title: "Упаковочные материалы"},
+{code: "7195", title: "Оборудование и инструмент для упаковки"},
+{code: "7197", title: "Опломбирование и опечатывание"}]},
+
+{code: "72", title: "Клининговое оборудование, инвентарь и комплектующие, бытовая химия",children: [
+{code: "7210", title: "Машины и оборудование для клининга"},
+{code: "7220", title: "Контейнеры для мусора и комплектующие"},
+{code: "7230", title: "Тележки для уборки и обслуживания зданий и дополнительные принадлежности"},
+{code: "7240", title: "Уборочный инвентарь"},
+{code: "7250", title: "Диспенсеры для чистящих растворов и аксессуаров"},
+{code: "7260", title: "Моющие средства"}]},
+
+{code: "73", title: "Спецодежда и СИЗ",children: [
+{code: "7302", title: "Спецодежда зимняя"},
+{code: "7304", title: "Спецодежда летняя"},
+{code: "7306", title: "Спецодежда защитная"},
+{code: "7308", title: "Одежда для работников сервисных предприятий"},
+{code: "7310", title: "Спецобувь"},
+{code: "7315", title: "Трикотажные изделия"},
+{code: "7320", title: "Средства защиты головы"},
+{code: "7325", title: "Средства защиты органов дыхания"},
+{code: "7330", title: "Средства защиты органов зрения и лица"},
+{code: "7335", title: "Средства защиты органов слуха"},
+{code: "7340", title: "Средства защиты рук"},
+{code: "7345", title: "Средства защиты от поражения током, диэлектрика"},
+{code: "7350", title: "Средства для защиты от падения с высоты"},
+{code: "7355", title: "Знаки безопасности и ленты предупредительные"},
+{code: "7360", title: "Средства оказания первой помощи"},
+{code: "7365", title: "Дерматологические средства"},
+{code: "7370", title: "Средства хранения СИЗ"}]},
+
+{code: "75", title: "Автоматизация, КИП",children: [
+{code: "7510", title: "Автоматизированные системы управления технологическими процессами (АСУТП)"},
+{code: "7520", title: "Автоматизация инженерных систем зданий"},
+{code: "7540", title: "Контрольно-измерительные приборы (КИП)"},
+{code: "7550", title: "Домашняя автоматизация (умный дом)"}]},
+
+{code: "80", title: "Оборудование 6-10кВ",children: [
+{code: "8010", title: "Трансформаторы высоковольтные"},
+{code: "8020", title: "Конденсаторы и конденсаторные установки высоковольтные"},
+{code: "8030", title: "Устройства защиты высоковольтные"},
+{code: "8040", title: "Высоковольтные коммутационные аппараты"},
+{code: "8050", title: "Высоковольтные изоляторы и линейная арматура"}]},
+
+{code: "82", title: "Комплектные устройства",children: [
+{code: "8210", title: "Комплектные устройства низковольтные (НКУ)"},
+{code: "8220", title: "Комплектные устройства среднего напряжения"}]},
+
+{code: "83", title: "Строительные, монтажные конструкции и материалы",children: [
+{code: "8310", title: "Сухие строительные смеси"},
+{code: "8315", title: "Цемент и сыпучие материалы"},
+{code: "8320", title: "Бетон и строительные растворы"},
+{code: "8325", title: "Дороги и ландшафт"},
+{code: "8330", title: "Конструкционные строительные материалы"},
+{code: "8335", title: "Изоляция"},
+{code: "8340", title: "Материалы для отделки фасадов"},
+{code: "8345", title: "Материалы для отделки интерьера"},
+{code: "8350", title: "Клеи и герметики"},
+{code: "8355", title: "Лакокрасочные материалы и комплектующие"}]},
+
+{code: "84", title: "Производственные компоненты и материалы",children: [
+{code: "8402", title: "Подшипники"},
+{code: "8404", title: "Системы линейного перемещения"},
+{code: "8406", title: "Промышленная трансмиссия"},
+{code: "8415", title: "Уплотнительные материалы"},
+{code: "8418", title: "Резинотехнические изделия"},
+{code: "8427", title: "Изделия из стекловолокна"},
+{code: "8430", title: "Оснащение лабораторий"},
+{code: "8459", title: "Гидравлические системы"}]},
+
+{code: "85", title: "Бытовая техника",children: [
+{code: "8510", title: "Крупная техника для кухни"},
+{code: "8520", title: "Встраиваемая техника"},
+{code: "8530", title: "Мелкая техника для кухни"},
+{code: "8540", title: "Приготовление кофе"},
+{code: "8550", title: "Техника для дома"},
+{code: "8570", title: "Техника для красоты и здоровья"}]},
+
+{code: "90", title: "Системы безопасности",children: [
+{code: "9010", title: "Охранно-пожарная сигнализация (ОПС)"},
+{code: "9020", title: "Системы оповещения (СОУЭ)"},
+{code: "9025", title: "Средства пожаротушения"},
+{code: "9030", title: "Системы видеонаблюдения (CCTV)"},
+{code: "9040", title: "Системы контроля доступа (СКУД)"},
+{code: "9045", title: "Оборудование для парковок"},
+{code: "9050", title: "Домофоны и переговорные устройства"},
+{code: "9065", title: "Автоматика для ворот"},
+{code: "9070", title: "Шлагбаумы и противотаранные устройства"},
+{code: "9075", title: "Рации и радиостанции"},
+{code: "9080", title: "Защитные сооружения"},
+{code: "9095", title: "Кабельно-проводниковая продукция"}]},
+
+{code: "93", title: "Компьютеры, серверы и мультимедиа",children: [
+{code: "9305", title: "Серверы, СХД и АРМ"},
+{code: "9310", title: "Персональные компьютеры, ноутбуки"},
+{code: "9315", title: "Мобильные устройства и фототехника"},
+{code: "9320", title: "Компьютерная периферия и аксессуары"},
+{code: "9325", title: "Печатная техника и оргтехника"},
+{code: "9330", title: "Мультимедиа"},
+{code: "9335", title: "Видеоконференцсвязь и KVM оборудование"},
+{code: "9340", title: "Комплектующие для ПК и серверов"},
+{code: "9343", title: "Игровые консоли и аксессуары"},
+{code: "9345", title: "Робототехника и 3D принтеры"},
+{code: "9350", title: "Торговое оборудование"},
+{code: "9355", title: "Программное обеспечение для ПК и серверов"}]},
+
+{code: "95", title: "Телекоммуникационное оборудование и СКС",children: [
+{code: "9515", title: "Структурированные кабельные системы (СКС) на основе медных компонентов"},
+{code: "9525", title: "Структурированные кабельные системы (СКС) на основе оптических компонентов"},
+{code: "9535", title: "Телекоммуникационные шкафы и стойки"},
+{code: "9545", title: "Комплектующие телекоммуникационных шкафов и стоек"},
+{code: "9555", title: "Монтажные аксессуары СКС"},
+{code: "9565", title: "Сетевое оборудование"},
+{code: "9570", title: "ТВ-оборудование"},
+{code: "9575", title: "IP-телефония"}]},
+
+{code: "96", title: "Мебель",children: [
+{code: "9605", title: "Офисная мебель и аксессуары"},
+{code: "9610", title: "Кресла, стулья и мягкая мебель"},
+{code: "9615", title: "Мебель для ресторанов"},
+{code: "9625", title: "Мебель для гостиниц и хостелов"},
+{code: "9645", title: "Металлическая мебель"},
+{code: "9650", title: "Медицинская мебель и оборудование"}]},
+
+{code: "97", title: "Канцтовары",children: [
+{code: "9710", title: "Офисная техника"},
+{code: "9720", title: "Офисные принадлежности"},
+{code: "9730", title: "Папки и картотеки"},
+{code: "9740", title: "Демооборудование и аксессуары"},
+{code: "9770", title: "Деловая бумажная продукция"},
+{code: "9780", title: "Бумага"},
+{code: "9790", title: "Письменные принадлежности"}]},
+
+
+{code: "D0", title: "Масла, смазки и промышленная химия",children: [
+{code: "D005", title: "Автомобильные масла"},
+{code: "D011", title: "Масла для мототехники и инструмента"},
+{code: "D015", title: "Индустриальные (технические) масла"},
+{code: "D020", title: "Смазки"},
+{code: "D030", title: "Промышленная химия"},
+{code: "D040", title: "Автохимия"},
+{code: "D050", title: "Автокосметика"}]},
+
+{code: "F0", title: "Крепеж",children: [
+{code: "F010", title: "Анкеры"},
+{code: "F020", title: "Дюбели и дюбель-гвозди"},
+{code: "F029", title: "Метрический и дюймовый крепеж"},
+{code: "F035", title: "Запрессовочный крепеж"},
+{code: "F038", title: "Приварной крепеж"},
+{code: "F040", title: "Саморезы и шурупы"},
+{code: "F050", title: "Гвозди"},
+{code: "F060", title: "Такелаж"},
+{code: "F070", title: "Тросы, цепи, веревки, проволока"},
+{code: "F075", title: "Стропы, ремни, тенты, ленты"},
+{code: "F080", title: "Хомуты и сантехнический крепеж"},
+{code: "F092", title: "Перфорированный крепеж"},
+{code: "F093", title: "Заклепки"},
+{code: "F098", title: "Замки, скобяные изделия"}]},
+
+{code: "G1", title: "Трубопроводные системы",children: [
+{code: "G110", title: "Трубы, фитинги, соединения для водоснабжения и отопления"},
+{code: "G120", title: "Трубы и соединительные детали для канализации"},
+{code: "G130", title: "Системы дренажные и ливневая канализация"},
+{code: "G140", title: "Теплоизоляция для трубных систем"},
+{code: "G150", title: "Монтажный инструмент для трубопроводов, расходные материалы"},
+{code: "G154", title: "Сантехника"},
+{code: "G160", title: "Фильтры и водоподготовка"},
+{code: "G170", title: "Приборы для измерения и учета расхода воды, тепла, давления"},
+{code: "G180", title: "Сопутствующие товары"}]},
+
+{code: "G4", title: "Запорная и регулирующая арматура",children: [
+{code: "G405", title: "Краны шаровые"},
+{code: "G410", title: "Задвижки для трубопроводов"},
+{code: "G415", title: "Клапаны запорные (вентили)"},
+{code: "G420", title: "Затворы поворотные дисковые"},
+{code: "G425", title: "Клапаны регулирующие"},
+{code: "G430", title: "Клапаны поплавковые"},
+{code: "G435", title: "Клапаны смесительные"},
+{code: "G440", title: "Клапаны балансировочные"},
+{code: "G445", title: "Приводы и редукторы для запорной арматуры"},
+{code: "G450", title: "Комплектующие для запорной арматуры"},
+{code: "G455", title: "Коллекторы распределительные"},
+{code: "G460", title: "Предохранительная арматура"},
+{code: "G465", title: "Арматура промышленная трубопроводная"},
+{code: "G480", title: "Пожарное оборудование"}]},
+
+{code: "G7", title: "Насосы, баки и емкости",children: [
+{code: "G710", title: "Насосы бытовые"},
+{code: "G720", title: "Насосы промышленные"},
+{code: "G725", title: "Комплектующие для насосов"},
+{code: "G730", title: "Системы управления насосами"},
+{code: "G740", title: "Баки мембранные и гидроаккумуляторы"},
+{code: "G760", title: "Баки и емкости для воды"},
+{code: "G770", title: "Септики (канализация)"}]},
+
+{code: "S0", title: "Сопутствующие товары", children: [
+{code: "S020", title: "Хозяйственные товары"}]},
+{code: "SW", title: "Программное обеспечение",children: [
+{code: "SW10", title: "Программное обеспечение САПР"},
+{code: "SW20", title: "Программное обеспечение, лицензии для активного сетевого оборудования"}]}
+        ];
+
+        // Генерация HTML
+        function renderCategories() {
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = '';
+            
+            let totalLevel1 = 0;
+            let totalLevel2 = 0;
+            
+            categoriesData.forEach(category => {
+                totalLevel1++;
+                const hasManyChildren = category.children && category.children.length > 5;
+                const hiddenCount = hasManyChildren ? category.children.length - 5 : 0;
+                
+                let childrenHTML = '';
+                if (category.children) {
+                    category.children.forEach((child, index) => {
+                        totalLevel2++;
+                        childrenHTML += `
+                            <div class="level2-item">
+                                <span class="level2-code">${child.code}</span>
+                                <span class="level2-title">${child.title}</span>
+                            </div>
+                        `;
+                    });
+                }
+                
+                const blockHTML = `
+                    <div class="level1-block ${hasManyChildren ? 'collapsed' : ''}">
+                        <div class="level1-header">
+                            <span class="level1-code">${category.code}</span>
+                            <div class="level1-title">${category.title}</div>
+                        </div>
+                        <div class="level2-container">
+                            <div class="level2-list">
+                                ${childrenHTML}
+                            </div>
+                            ${hasManyChildren ? 
+                                `<div class="show-more-container">
+                                    <button class="show-more-btn" data-category="${category.code}">
+                                        <i>+</i> Показать еще ${hiddenCount}
+                                    </button>
+                                </div>` : 
+                                ''}
+                        </div>
+                    </div>
+                `;
+                
+                container.innerHTML += blockHTML;
+            });
+            
+            // Обновляем статистику
+            document.getElementById('totalCategories').textContent = totalLevel1 + totalLevel2;
+            document.getElementById('level1Count').textContent = totalLevel1;
+            document.getElementById('level2Count').textContent = totalLevel2;
+            
+            // Добавляем обработчики событий для кнопок "Показать еще"
+            document.querySelectorAll('.show-more-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const categoryCode = this.getAttribute('data-category');
+                    const block = this.closest('.level1-block');
+                    
+                    if (block.classList.contains('collapsed')) {
+                        // Разворачиваем блок
+                        block.classList.remove('collapsed');
+                        this.innerHTML = '<i>−</i> Свернуть';
+                    } else {
+                        // Сворачиваем блок
+                        block.classList.add('collapsed');
+                        const hiddenCount = block.querySelectorAll('.level2-item').length - 5;
+                        this.innerHTML = `<i>+</i> Показать еще ${hiddenCount}`;
+                    }
+                });
+            });
+        }
+        
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', renderCategories);
+    </script>
+</body>
+</html>
