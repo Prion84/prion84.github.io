@@ -1,1 +1,384 @@
-
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги гостиницы</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f7f7f7;
+            color: #333;
+            line-height: 1.5;
+            padding: 20px;
+        }
+        
+        .services-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        @media (max-width: 992px) {
+            .services-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .services-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .service-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .service-category {
+            background: white;
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .category-icon {
+            margin-right: 10px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+            color: #3498db;
+        }
+        
+        .category-list {
+            list-style-type: none;
+        }
+        
+        .category-list li {
+            padding: 6px 0;
+            font-size: 14px;
+            color: #555;
+            border-bottom: 1px solid #f5f5f5;
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .service-item-icon {
+            margin-right: 8px;
+            color: #7f8c8d;
+            font-size: 12px;
+            width: 16px;
+            text-align: center;
+        }
+        
+        /* Цвета иконок для разных категорий */
+        .category-restaurant .category-icon { color: #e74c3c; }
+        .category-pool .category-icon { color: #3498db; }
+        .category-safety .category-icon { color: #e67e22; }
+        .category-info .category-icon { color: #95a5a6; }
+        .category-conference .category-icon { color: #9b59b6; }
+        .category-kids .category-icon { color: #1abc9c; }
+        .category-internet .category-icon { color: #34495e; }
+        .category-spa .category-icon { color: #d35400; }
+        .category-territory .category-icon { color: #16a085; }
+        .category-parking .category-icon { color: #2980b9; }
+        .category-entertainment .category-icon { color: #8e44ad; }
+        .category-reception .category-icon { color: #27ae60; }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <section class="services-section">
+        <h2 class="section-title">Услуги отеля</h2>
+        
+        <div class="services-container">
+            <!-- Колонка 1 -->
+            <div class="service-column">
+                <div class="service-category category-restaurant">
+                    <div class="category-header">
+                        <div class="category-icon"><i class="fas fa-utensils"></i></div>
+                        Бары и рестораны
+                    </div>
+                    <ul class="category-list">
+                        <li><i class="fas fa-check service-item-icon"></i>Ресторан</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Кафе</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Бар</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Бар у бассейна</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Снек-бар</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Лобби-бар</li>
+                    </ul>
+                </div>
+                
+                <div class="service-category category-pool">
+                    <div class="category-header">
+                        <div class="category-icon"><i class="fas fa-umbrella-beach"></i></div>
+                        Бассейн и пляж
+                    </div>
+                    <ul class="category-list">
+                        <li><i class="fas fa-check service-item-icon"></i>Собственный пляж</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Солнцезащитные зонты</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Крытый бассейн</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Открытый бассейн</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Детский бассейн</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Шезлонги</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Пирс</li>
+                    </ul>
+                </div>
+                
+                <div class="service-category category-safety">
+                    <div class="category-header">
+                        <div class="category-icon"><i class="fas fa-shield-alt"></i></div>
+                        Безопасность
+                    </div>
+                    <ul class="category-list">
+                        <li><i class="fas fa-check service-item-icon"></i>Датчик дыма</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Аптечка первой помощи</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Охрана</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Видеонаблюдение</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Огнетушитель</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Колонка 2 -->
+            <div class="service-column">
+                <div class="service-category category-info">
+                    <div class="category-header">
+                        <div class="category-icon"><i class="fas fa-info-circle"></i></div>
+                        Важная информация
+                    </div>
+                    <ul class="category-list">
+                        <li><i class="fas fa-check service-item-icon"></i>Курение на всей территории запрещено</li>
+                    </ul>
+                </div>
+                
+                <div class="service-category category-conference">
+                    <div class="category-header">
+                        <div class="category-icon"><i class="fas fa-briefcase"></i></div>
+                        Возможности для конференций
+                    </div>
+                    <ul class="category-list">
+                        <li><i class="fas fa-check service-item-icon"></i>Конференц-зал</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Переговорная комната</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Бизнес-центр</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Факс/ксерокс</li>
+                    </ul>
+                </div>
+                
+                <div class="service-category category-kids">
+                    <div class="category-header">
+                        <div class="category-icon"><i class="fas fa-child"></i></div>
+                        Детям
+                    </div>
+                    <ul class="category-list">
+                        <li><i class="fas fa-check service-item-icon"></i>Детская комната</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Детская площадка</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Анимация для детей</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Детское меню</li>
+                    </ul>
+                </div>
+                
+                <div class="service-category category-internet">
+                    <div class="category-header">
+                        <div class="category-icon"><i class="fas fa-wifi"></i></div>
+                        Интернет
+                    </div>
+                    <ul class="category-list">
+                        <li><i class="fas fa-check service-item-icon"></i>WiFi в номерах</li>
+                        <li><i class="fas fa-check service-item-icon"></i>WiFi в отеле</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Колонка 3 -->
+            <div class="service-column">
+                <div class="service-category category-spa">
+                    <div class="category-header">
+                        <div class="category-icon"><i class="fas fa-spa"></i></div>
+                        Красота и здоровье
+                    </div>
+                    <ul class="category-list">
+                        <li><i class="fas fa-check service-item-icon"></i>Сауна</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Салон красоты</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Медицинская помощь</li>
+                        <li><i class="fas fa-check service-item-icon"></i>SPA-комплекс</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Соляная парная</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Хаммам</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Русская баня</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Солярий</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Косметологические услуги</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Уход за волосами</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Маникюр</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Педикюр</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Стрижки</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Укладки</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Уход за телом</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Пилинг для тела</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Обертывания</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Массаж спины</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Массаж всего тела</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Колонка 4 -->
+            <div class="service-column">
+                <div class="service-category category-territory">
+                    <div class="category-header">
+                        <div class="category-icon"><i class="fas fa-hotel"></i></div>
+                        На территории
+                    </div>
+                    <ul class="category-list">
+                        <li><i class="fas fa-check service-item-icon"></i>Обслуживание в номере</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Прачечная/химчистка</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Банкомат</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Камера хранения/комната для багажа</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Магазин</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Лифт</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Минимаркет</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Поле для гольфа</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Чистка обуви</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Места для курения</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Мебель на улице/балконе</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Камин</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Билеты на шоу и мероприятия</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Каток</li>
+                    </ul>
+                </div>
+                
+                <div class="service-category category-parking">
+                    <div class="category-header">
+                        <div class="category-icon"><i class="fas fa-parking"></i></div>
+                        Парковка и трансфер
+                    </div>
+                    <ul class="category-list">
+                        <li><i class="fas fa-check service-item-icon"></i>Парковка</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Прокат автомобилей</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Станция зарядки электромобилей</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Трансфер из аэропорта</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Трансфер в аэропорт</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Заказ такси</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Вторая строка с оставшимися услугами -->
+        <div class="services-container" style="margin-top: 30px;">
+            <!-- Колонка 1 второй строки -->
+            <div class="service-column">
+                <div class="service-category category-entertainment">
+                    <div class="category-header">
+                        <div class="category-icon"><i class="fas fa-gamepad"></i></div>
+                        Развлечения и спорт
+                    </div>
+                    <ul class="category-list">
+                        <li><i class="fas fa-check service-item-icon"></i>Бильярд/боулинг</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Тренажерный зал</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Анимация для взрослых</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Прокат спортинвентаря</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Экскурсии</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Настольный теннис</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Теннисный корт</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Волейбол</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Баскетбол</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Дартс</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Аэробика</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Мини-гольф</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Джакузи</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Фитнес-центр</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Рыбалка</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Лыжи</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Караоке</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Велосипеды</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Верховая езда</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Сквош</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Прокат лыжного снаряжения</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Настольные игры/паззлы</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Снаряжение для тенниса</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Бадминтон</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Фитнес</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Йога</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Личный тренер</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Стрельба из лука</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Лодки/моторные лодки</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Терраса для загара</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Футбол</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Колонка 2 второй строки -->
+            <div class="service-column">
+                <div class="service-category category-reception">
+                    <div class="category-header">
+                        <div class="category-icon"><i class="fas fa-concierge-bell"></i></div>
+                        Стойка регистрации
+                    </div>
+                    <ul class="category-list">
+                        <li><i class="fas fa-check service-item-icon"></i>Сейф на ресепшен</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Журналы/газеты</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Счета и закрывающие документы</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Ускоренная регистрация заезда/выезда</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Услуги консьержа</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Носильщик/швейцар/дворецкий</li>
+                        <li><i class="fas fa-check service-item-icon"></i>Круглосуточная стойка регистрации</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Пустые колонки для выравнивания -->
+            <div class="service-column"></div>
+            <div class="service-column"></div>
+        </div>
+    </section>
+    
+    <div class="footer">
+        <p>© 2023 Гостиница "Премиум". Все права защищены.</p>
+    </div>
+</body>
+</html>
