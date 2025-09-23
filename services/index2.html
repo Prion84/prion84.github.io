@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги гостиницы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .services-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            font-size: 32px;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #e67e22;
+            margin: 10px auto;
+        }
+        
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        
+        @media (max-width: 992px) {
+            .services-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .services-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .service-category {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .service-category:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-header {
+            background: #3498db;
+            color: white;
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .category-list {
+            padding: 20px;
+            list-style-type: none;
+        }
+        
+        .category-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .category-list li:before {
+            content: "•";
+            color: #e67e22;
+            position: absolute;
+            left: 0;
+        }
+        
+        .category-list li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Цвета для разных категорий */
+        .category-1 .category-header { background: #3498db; }
+        .category-2 .category-header { background: #2ecc71; }
+        .category-3 .category-header { background: #e74c3c; }
+        .category-4 .category-header { background: #9b59b6; }
+        .category-5 .category-header { background: #f39c12; }
+        .category-6 .category-header { background: #1abc9c; }
+        .category-7 .category-header { background: #d35400; }
+        .category-8 .category-header { background: #34495e; }
+        .category-9 .category-header { background: #16a085; }
+        .category-10 .category-header { background: #8e44ad; }
+    </style>
+</head>
+<body>
+    <section class="services-section">
+        <h2 class="section-title">Услуги гостиницы</h2>
+        
+        <div class="services-container">
+            <!-- Столбец 1 -->
+            <div class="service-category category-1">
+                <div class="category-header">Бары и рестораны</div>
+                <ul class="category-list">
+                    <li>Ресторан</li>
+                    <li>Кафе</li>
+                    <li>Бар</li>
+                    <li>Бар у бассейна</li>
+                    <li>Снек-бар</li>
+                    <li>Лобби-бар</li>
+                </ul>
+            </div>
+            
+            <div class="service-category category-2">
+                <div class="category-header">Бассейн и пляж</div>
+                <ul class="category-list">
+                    <li>Собственный пляж</li>
+                    <li>Солнцезащитные зонты</li>
+                    <li>Крытый бассейн</li>
+                    <li>Открытый бассейн</li>
+                    <li>Детский бассейн</li>
+                    <li>Шезлонги</li>
+                    <li>Пирс</li>
+                </ul>
+            </div>
+            
+            <div class="service-category category-3">
+                <div class="category-header">Безопасность</div>
+                <ul class="category-list">
+                    <li>Датчик дыма</li>
+                    <li>Аптечка первой помощи</li>
+                    <li>Охрана</li>
+                    <li>Видеонаблюдение</li>
+                    <li>Огнетушитель</li>
+                </ul>
+            </div>
+            
+            <div class="service-category category-4">
+                <div class="category-header">Важная информация</div>
+                <ul class="category-list">
+                    <li>Курение на всей территории запрещено</li>
+                </ul>
+            </div>
+            
+            <!-- Столбец 2 -->
+            <div class="service-category category-5">
+                <div class="category-header">Возможности для конференций</div>
+                <ul class="category-list">
+                    <li>Конференц-зал</li>
+                    <li>Переговорная комната</li>
+                    <li>Бизнес-центр</li>
+                    <li>Факс/ксерокс</li>
+                </ul>
+            </div>
+            
+            <div class="service-category category-6">
+                <div class="category-header">Детям</div>
+                <ul class="category-list">
+                    <li>Детская комната</li>
+                    <li>Детская площадка</li>
+                    <li>Анимация для детей</li>
+                    <li>Детское меню</li>
+                </ul>
+            </div>
+            
+            <div class="service-category category-7">
+                <div class="category-header">Интернет</div>
+                <ul class="category-list">
+                    <li>WiFi в номерах</li>
+                    <li>WiFi в отеле</li>
+                </ul>
+            </div>
+            
+            <div class="service-category category-8">
+                <div class="category-header">Красота и здоровье</div>
+                <ul class="category-list">
+                    <li>Сауна</li>
+                    <li>Салон красоты</li>
+                    <li>Медицинская помощь</li>
+                    <li>SPA-комплекс</li>
+                    <li>Соляная парная</li>
+                    <li>Хаммам</li>
+                    <li>Русская баня</li>
+                    <li>Солярий</li>
+                </ul>
+            </div>
+            
+            <!-- Столбец 3 -->
+            <div class="service-category category-9">
+                <div class="category-header">Красота и здоровье (продолжение)</div>
+                <ul class="category-list">
+                    <li>Косметологические услуги</li>
+                    <li>Уход за волосами</li>
+                    <li>Маникюр</li>
+                    <li>Педикюр</li>
+                    <li>Стрижки</li>
+                    <li>Укладки</li>
+                    <li>Уход за телом</li>
+                    <li>Пилинг для тела</li>
+                </ul>
+            </div>
+            
+            <div class="service-category category-10">
+                <div class="category-header">Красота и здоровье (продолжение)</div>
+                <ul class="category-list">
+                    <li>Обертывания</li>
+                    <li>Массаж спины</li>
+                    <li>Массаж всего тела</li>
+                </ul>
+            </div>
+            
+            <div class="service-category category-1">
+                <div class="category-header">На территории</div>
+                <ul class="category-list">
+                    <li>Обслуживание в номере</li>
+                    <li>Прачечная/химчистка</li>
+                    <li>Банкомат</li>
+                    <li>Камера хранения/комната для багажа</li>
+                    <li>Магазин</li>
+                    <li>Лифт</li>
+                    <li>Минимаркет</li>
+                </ul>
+            </div>
+            
+            <div class="service-category category-2">
+                <div class="category-header">На территории (продолжение)</div>
+                <ul class="category-list">
+                    <li>Поле для гольфа</li>
+                    <li>Чистка обуви</li>
+                    <li>Места для курения</li>
+                    <li>Мебель на улице/балконе</li>
+                    <li>Камин</li>
+                    <li>Билеты на шоу и мероприятия</li>
+                    <li>Каток</li>
+                </ul>
+            </div>
+            
+            <!-- Столбец 4 -->
+            <div class="service-category category-3">
+                <div class="category-header">Парковка и трансфер</div>
+                <ul class="category-list">
+                    <li>Парковка</li>
+                    <li>Прокат автомобилей</li>
+                    <li>Cтанция зарядки электромобилей</li>
+                    <li>Трансфер из аэропорта</li>
+                    <li>Трансфер в аэропорт</li>
+                    <li>Заказ такси</li>
+                </ul>
+            </div>
+            
+            <div class="service-category category-4">
+                <div class="category-header">Развлечения и спорт</div>
+                <ul class="category-list">
+                    <li>Бильярд/боулинг</li>
+                    <li>Тренажерный зал</li>
+                    <li>Анимация для взрослых</li>
+                    <li>Прокат спортинвентаря</li>
+                    <li>Экскурсии</li>
+                    <li>Настольный теннис</li>
+                    <li>Теннисный корт</li>
+                </ul>
+            </div>
+            
+            <div class="service-category category-5">
+                <div class="category-header">Развлечения и спорт (продолжение)</div>
+                <ul class="category-list">
+                    <li>Волейбол</li>
+                    <li>Баскетбол</li>
+                    <li>Дартс</li>
+                    <li>Аэробика</li>
+                    <li>Мини-гольф</li>
+                    <li>Джакузи</li>
+                    <li>Фитнес-центр</li>
+                </ul>
+            </div>
+            
+            <div class="service-category category-6">
+                <div class="category-header">Развлечения и спорт (продолжение)</div>
+                <ul class="category-list">
+                    <li>Рыбалка</li>
+                    <li>Лыжи</li>
+                    <li>Караоке</li>
+                    <li>Велосипеды</li>
+                    <li>Верховая езда</li>
+                    <li>Сквош</li>
+                    <li>Прокат лыжного снаряжения</li>
+                </ul>
+            </div>
+            
+            <div class="service-category category-7">
+                <div class="category-header">Развлечения и спорт (продолжение)</div>
+                <ul class="category-list">
+                    <li>Настольные игры/паззлы</li>
+                    <li>Снаряжение для тенниса</li>
+                    <li>Бадминтон</li>
+                    <li>Фитнес</li>
+                    <li>Йогa</li>
+                    <li>Личный тренер</li>
+                    <li>Стрельба из лука</li>
+                </ul>
+            </div>
+            
+            <div class="service-category category-8">
+                <div class="category-header">Развлечения и спорт (продолжение)</div>
+                <ul class="category-list">
+                    <li>Лодки/моторные лодки</li>
+                    <li>Терраса для загара</li>
+                    <li>Футбол</li>
+                </ul>
+            </div>
+            
+            <div class="service-category category-9">
+                <div class="category-header">Стойка регистрации</div>
+                <ul class="category-list">
+                    <li>Сейф на ресепшен</li>
+                    <li>Журналы/газеты</li>
+                    <li>Счета и закрывающие документы</li>
+                    <li>Ускоренная регистрация заезда/выезда</li>
+                    <li>Услуги консьержа</li>
+                    <li>Носильщик/швейцар/дворецкий</li>
+                    <li>Круглосуточная стойка регистрации</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
