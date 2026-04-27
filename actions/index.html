@@ -1,1 +1,493 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1, width=device-width, shrink-to-fit=no">
+  <title>Акции и предложения | ЭТМ</title>
+  <meta name="robots" content="index,follow">
+  
+  <!-- Fonts & Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #eef0f3;
+      color: #212731;
+    }
+
+    /* Layout */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 32px;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumbs {
+      margin-bottom: 24px;
+      font-size: 14px;
+      color: #79859E;
+    }
+
+    .breadcrumbs a {
+      color: #0876cc;
+      text-decoration: none;
+    }
+
+    .breadcrumbs a:hover {
+      text-decoration: underline;
+    }
+
+    .breadcrumbs span {
+      color: #212731;
+    }
+
+    /* Filters */
+    .filters-section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .filters-title {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 16px;
+      color: #1a1f36;
+    }
+
+    .filter-group {
+      margin-bottom: 20px;
+    }
+
+    .filter-label {
+      font-weight: 500;
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: #2c3e50;
+      display: block;
+    }
+
+    .filter-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .filter-chip {
+      background: #f1f3f7;
+      padding: 6px 16px;
+      border-radius: 32px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #1f2a48;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .filter-chip.active {
+      background: #09529b;
+      color: white;
+      border-color: #09529b;
+    }
+
+    .filter-chip:hover:not(.active) {
+      background: #e4e8f0;
+    }
+
+    /* Cards grid */
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px;
+      margin-bottom: 48px;
+    }
+
+    .action-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+    }
+
+    .action-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #f5f7fb;
+    }
+
+    .card-content {
+      padding: 16px 18px 20px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #0c4e9c;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .card-date {
+      font-size: 13px;
+      color: #8a93a6;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-badge {
+      display: inline-block;
+      background: #ffeee5;
+      color: #f97316;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 30px;
+      margin-bottom: 10px;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .page-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      height: 40px;
+      padding: 0 8px;
+      border-radius: 8px;
+      background: #fff;
+      color: #1f2a48;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid #e2e8f0;
+    }
+
+    .page-link.active {
+      background: #09529b;
+      color: white;
+      border-color: #09529b;
+      cursor: default;
+    }
+
+    .page-link:hover:not(.active) {
+      background: #eef2ff;
+      border-color: #b9c3da;
+    }
+
+    .page-dots {
+      color: #6c7a91;
+      padding: 0 4px;
+    }
+
+    /* No past actions block */
+    .no-past-block {
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 16px;
+      }
+      .actions-grid {
+        gap: 16px;
+      }
+      .filter-options {
+        gap: 8px;
+      }
+      .filter-chip {
+        font-size: 12px;
+        padding: 5px 12px;
+      }
+      .page-link {
+        min-width: 36px;
+        height: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- 1. Хлебные крошки: Главная (ссылка) / Акции (без ссылки) -->
+  <div class="breadcrumbs">
+    <a href="/">Главная</a> &nbsp;/&nbsp;
+    <span>Акции</span>
+  </div>
+
+  <!-- Фильтры (как в ТЗ) -->
+  <div class="filters-section">
+    <div class="filters-title">Фильтр акций</div>
+
+    <div class="filter-group">
+      <span class="filter-label">Тип акции</span>
+      <div class="filter-options" id="filterType">
+        <span class="filter-chip" data-type="all">Все</span>
+        <span class="filter-chip" data-type="cashback">Кешбек</span>
+        <span class="filter-chip" data-type="discount">Скидка</span>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">Производитель</span>
+      <div class="filter-options" id="filterBrand">
+        <span class="filter-chip" data-brand="all">Все</span>
+        <span class="filter-chip" data-brand="Промрукав">Промрукав</span>
+        <span class="filter-chip" data-brand="Космос">Космос</span>
+        <span class="filter-chip" data-brand="Евроавтоматика">Евроавтоматика</span>
+        <span class="filter-chip" data-brand="Kranz">Kranz</span>
+        <span class="filter-chip" data-brand="Rexant">Rexant</span>
+        <span class="filter-chip" data-brand="Lavr">Lavr</span>
+        <span class="filter-chip" data-brand="Кордлайн">Кордлайн</span>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">Товарная группа</span>
+      <div class="filter-options" id="filterGroup">
+        <span class="filter-chip" data-group="all">Все</span>
+        <span class="filter-chip" data-group="Кабели">Кабели</span>
+        <span class="filter-chip" data-group="Светотехника">Светотехника</span>
+        <span class="filter-chip" data-group="Авт. выключатели">Авт. выключатели</span>
+        <span class="filter-chip" data-group="Выключатели и розетки">Выключатели и розетки</span>
+        <span class="filter-chip" data-group="Инструменты">Инструменты</span>
+        <span class="filter-chip" data-group="Пром.химия">Пром.химия</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Список акций -->
+  <div class="actions-grid" id="actionsList"></div>
+
+  <!-- Пагинация: 1, 2, 3, 4.... 81 (активная – кроме первой) -->
+  <div class="pagination" id="paginationContainer"></div>
+</div>
+
+<script>
+  // ======================= ДАННЫЕ АКЦИЙ (на основе исходного файла и требований) =======================
+  // Создаём массив акций, каждая содержит: id, название, дата начала/конца (коротко), тип (cashback/discount), 
+  // производитель, товарная группа, изображение (заглушка, но можно брать из реальных ссылок из файла)
+  const actionsData = [
+    { id: 1, title: "Беспроцентная рассрочка от ЭТМ", startDate: "01.04.2026", endDate: "30.06.2026", type: "cashback", brand: "ЭТМ", group: "Кабели", img: "https://personalization-web.g.mindbox.ru/user-media/37304/05eec6a843c9877b8e2ed2e152a79b7afd009e694666dca44a31833ad5f0b2a0.png", badge: "Кешбек 5%" },
+    { id: 2, title: "Скидка на коммутаторы", startDate: "10.04.2026", endDate: "20.05.2026", type: "discount", brand: "Rexant", group: "Авт. выключатели", img: "https://personalization-web.g.mindbox.ru/user-media/37304/8cf655f4dc363f65aee4a5b332f0f70b3325fb14e99642da0ab705e9f5d42f74.jpg", badge: "Скидка 15%" },
+    { id: 3, title: "Летняя распродажа спецодежды", startDate: "01.05.2026", endDate: "31.07.2026", type: "discount", brand: "Промрукав", group: "Пром.химия", img: "https://personalization-web.g.mindbox.ru/user-media/37304/2fcb7de42f5b2ab50ff54ae4ec75d60b4caad94ae184d240c10eb023098d407b.png", badge: "-20%" },
+    { id: 4, title: "Кешбек за покупку кабеля", startDate: "15.04.2026", endDate: "15.06.2026", type: "cashback", brand: "Кордлайн", group: "Кабели", img: "https://personalization-web.g.mindbox.ru/user-media/37304/0ce19445abbf4e14eb593686a2c8c9bfe7d40bd99dd11dcf53d6da9cf910a92a.png", badge: "Кешбек 10%" },
+    { id: 5, title: "Выгода на светотехнику", startDate: "01.05.2026", endDate: "30.08.2026", type: "discount", brand: "Космос", group: "Светотехника", img: "https://personalization-web.g.mindbox.ru/user-media/37304/c5fac282580126ce91f3c96b604cd035972246d8679c499e37fe07761770ce2c.jpg", badge: "Скидка 12%" },
+    { id: 6, title: "Автоматика со скидкой", startDate: "20.04.2026", endDate: "10.06.2026", type: "discount", brand: "Евроавтоматика", group: "Авт. выключатели", img: "https://personalization-web.g.mindbox.ru/user-media/37304/8a1c48674d3b407d034d874aee6f19b9ad75fac5bf6c5e49eb2b164c0148ec24.png", badge: "Скидка 25%" },
+    { id: 7, title: "Инструменты Kranz – выгода до 30%", startDate: "01.04.2026", endDate: "30.06.2026", type: "discount", brand: "Kranz", group: "Инструменты", img: "https://personalization-web.g.mindbox.ru/user-media/37304/3da8a37f30c0fc9941b60c1d26e5495b8b04d72ca657160297ff799906489f74.jpg", badge: "Скидка 30%" },
+    { id: 8, title: "Промхимия Lavr – бонусы", startDate: "15.05.2026", endDate: "15.07.2026", type: "cashback", brand: "Lavr", group: "Пром.химия", img: "https://personalization-web.g.mindbox.ru/user-media/37304/212cfd6704c87d4c7f1eb21bd5a38c5cd9461973d2cef9b2db06fd526a7eda8b.png", badge: "Бонус 7%" },
+    { id: 9, title: "Розетки и выключатели – кешбэк", startDate: "05.04.2026", endDate: "25.06.2026", type: "cashback", brand: "Rexant", group: "Выключатели и розетки", img: "https://personalization-web.g.mindbox.ru/user-media/37304/427628d7db8a813e6c04184cbffeeae7b1a080987bad1ebbbe6730a6347d82cf.png", badge: "Кешбек 8%" },
+    { id: 10, title: "Акция на кабельную продукцию", startDate: "01.03.2026", endDate: "31.05.2026", type: "discount", brand: "Кордлайн", group: "Кабели", img: "https://personalization-web.g.mindbox.ru/user-media/37304/5e5742d7f8f2f8d00baf691152cd36c425155342ad13c810068f5ace5d54b20e.jpg", badge: "Скидка 18%" }
+  ];
+
+  // Дополнительно добавим больше карточек для пагинации (до 81) для демонстрации, используя цикл на основе реальных названий
+  for (let i = 11; i <= 81; i++) {
+    const brandList = ["Промрукав","Космос","Евроавтоматика","Kranz","Rexant","Lavr","Кордлайн"];
+    const groupList = ["Кабели","Светотехника","Авт. выключатели","Выключатели и розетки","Инструменты","Пром.химия"];
+    const typeCycle = i % 2 === 0 ? "cashback" : "discount";
+    actionsData.push({
+      id: i,
+      title: `Акция ${i}: ${typeCycle === 'cashback' ? 'Дополнительный кешбек' : 'Сезонная скидка'} на электротехнику`,
+      startDate: `01.0${Math.floor(Math.random() * 5) + 3}.2026`,
+      endDate: `30.0${Math.floor(Math.random() * 3) + 6}.2026`,
+      type: typeCycle,
+      brand: brandList[i % brandList.length],
+      group: groupList[i % groupList.length],
+      img: "https://personalization-web.g.mindbox.ru/user-media/37304/955f1e4b9e5c4a1f8c3d7b9a2e1f4d8c.jpg",
+      badge: typeCycle === 'cashback' ? "Кешбек до 10%" : "Скидка до 25%"
+    });
+  }
+
+  // Элементы DOM
+  const actionsListEl = document.getElementById('actionsList');
+  const paginationContainer = document.getElementById('paginationContainer');
+  const filterTypeChips = document.querySelectorAll('#filterType .filter-chip');
+  const filterBrandChips = document.querySelectorAll('#filterBrand .filter-chip');
+  const filterGroupChips = document.querySelectorAll('#filterGroup .filter-chip');
+
+  // Активные фильтры
+  let activeType = 'all';
+  let activeBrand = 'all';
+  let activeGroup = 'all';
+  let currentPage = 1;
+  const itemsPerPage = 12;
+
+  // Функция фильтрации
+  function filterActions() {
+    return actionsData.filter(action => {
+      if (activeType !== 'all' && action.type !== activeType) return false;
+      if (activeBrand !== 'all' && action.brand !== activeBrand) return false;
+      if (activeGroup !== 'all' && action.group !== activeGroup) return false;
+      return true;
+    });
+  }
+
+  // Рендер сетки акций (с учётом пагинации)
+  function renderActions() {
+    const filtered = filterActions();
+    const totalPages = Math.ceil(filtered.length / itemsPerPage);
+    const startIdx = (currentPage - 1) * itemsPerPage;
+    const paginatedItems = filtered.slice(startIdx, startIdx + itemsPerPage);
+
+    if (paginatedItems.length === 0) {
+      actionsListEl.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px;">Акции не найдены</div>`;
+    } else {
+      actionsListEl.innerHTML = paginatedItems.map(action => `
+        <div class="action-card" data-id="${action.id}">
+          <img class="card-image" src="${action.img}" alt="${action.title}" loading="lazy" onerror="this.src='https://placehold.co/400x200?text=ЭТМ+Акция'">
+          <div class="card-content">
+            <div class="card-badge">${action.badge}</div>
+            <div class="card-title">${action.title}</div>
+            <div class="card-date">📅 ${action.startDate} — ${action.endDate}</div>
+            <div class="card-date">🏷️ ${action.brand} • ${action.group}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+    renderPagination(totalPages);
+  }
+
+  // 4. Пагинация: 1, 2, 3, 4.... 81, активная страница кроме первой при необходимости
+  function renderPagination(totalPages) {
+    if (totalPages <= 1) {
+      paginationContainer.innerHTML = '';
+      return;
+    }
+
+    let paginationHtml = '';
+    const maxVisible = 7; // сколько ссылок показываем до многоточия
+    let startPage = Math.max(1, currentPage - 3);
+    let endPage = Math.min(totalPages, currentPage + 3);
+    
+    if (endPage - startPage < maxVisible - 1) {
+      if (startPage === 1) endPage = Math.min(totalPages, startPage + maxVisible - 1);
+      else if (endPage === totalPages) startPage = Math.max(1, totalPages - maxVisible + 1);
+    }
+
+    // Стрелка "Назад"
+    paginationHtml += `<a href="#" class="page-link ${currentPage === 1 ? 'disabled' : ''}" data-page="${currentPage - 1}" style="${currentPage === 1 ? 'pointer-events:none;opacity:0.5;' : ''}">←</a>`;
+
+    // Первая страница, если не в начале
+    if (startPage > 1) {
+      paginationHtml += `<a href="#" class="page-link" data-page="1">1</a>`;
+      if (startPage > 2) paginationHtml += `<span class="page-dots">...</span>`;
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      const activeClass = (i === currentPage) ? 'active' : '';
+      paginationHtml += `<a href="#" class="page-link ${activeClass}" data-page="${i}">${i}</a>`;
+    }
+
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) paginationHtml += `<span class="page-dots">...</span>`;
+      paginationHtml += `<a href="#" class="page-link" data-page="${totalPages}">${totalPages}</a>`;
+    }
+
+    // Стрелка "Вперёд"
+    paginationHtml += `<a href="#" class="page-link ${currentPage === totalPages ? 'disabled' : ''}" data-page="${currentPage + 1}" style="${currentPage === totalPages ? 'pointer-events:none;opacity:0.5;' : ''}">→</a>`;
+
+    paginationContainer.innerHTML = paginationHtml;
+
+    // Добавляем обработчики на ссылки пагинации (кроме активной)
+    document.querySelectorAll('.page-link[data-page]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const newPage = parseInt(link.dataset.page);
+        if (!isNaN(newPage) && newPage >= 1 && newPage <= totalPages && newPage !== currentPage) {
+          currentPage = newPage;
+          renderActions();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    });
+  }
+
+  // Обновление активных классов фильтров
+  function updateFilterUI() {
+    filterTypeChips.forEach(chip => {
+      const val = chip.dataset.type;
+      if (val === activeType) chip.classList.add('active');
+      else chip.classList.remove('active');
+    });
+    filterBrandChips.forEach(chip => {
+      const val = chip.dataset.brand;
+      if (val === activeBrand) chip.classList.add('active');
+      else chip.classList.remove('active');
+    });
+    filterGroupChips.forEach(chip => {
+      const val = chip.dataset.group;
+      if (val === activeGroup) chip.classList.add('active');
+      else chip.classList.remove('active');
+    });
+  }
+
+  // Обработчики фильтров + сброс страницы
+  function initFilters() {
+    filterTypeChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        activeType = chip.dataset.type;
+        currentPage = 1;
+        updateFilterUI();
+        renderActions();
+      });
+    });
+    filterBrandChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        activeBrand = chip.dataset.brand;
+        currentPage = 1;
+        updateFilterUI();
+        renderActions();
+      });
+    });
+    filterGroupChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        activeGroup = chip.dataset.group;
+        currentPage = 1;
+        updateFilterUI();
+        renderActions();
+      });
+    });
+  }
+
+  // Блок "Прошедшие акции" полностью убран (не рендерим, нет такого блока в разметке)
+  // Удаляем исходный блок, если был — в нашей верстке его нет.
+
+  // Инициализация
+  function init() {
+    initFilters();
+    updateFilterUI();
+    renderActions();
+  }
+
+  init();
+</script>
+</body>
+</html>
